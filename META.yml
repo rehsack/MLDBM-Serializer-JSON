@@ -1,0 +1,26 @@
+---
+abstract: 'DBM serializer uses JSON for language interoperability'
+author:
+  - 'Jens Rehsack <rehsack@cpan.org>'
+build_requires:
+  Test::More: 0.9
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3607'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: MLDBM-Serializer-JSON
+provides:
+  MLDBM::Serializer::JSON:
+    file: lib/MLDBM/Serializer/JSON.pm
+    version: 0.001
+recommends:
+  MLDBM: 2.04
+requires:
+  JSON::Any: 1.22
+  MLDBM: 2.00
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.001
