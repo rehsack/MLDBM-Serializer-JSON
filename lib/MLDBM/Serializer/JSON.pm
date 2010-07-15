@@ -2,7 +2,7 @@ package MLDBM::Serializer::JSON;
 
 use warnings;
 use strict;
-use vars qw($VERSION);
+use vars qw($VERSION @ISA);
 
 use JSON::Any;
 
@@ -13,15 +13,39 @@ MLDBM::Serializer::JSON - DBM serializer uses JSON for language interoperability
 =cut
 
 $VERSION = '0.001';
+@ISA = qw(MLDBM::Serializer);
 
 =head1 SYNOPSIS
 
-    use MLDBM;
+    # using MLDBM hash interface
+    use MLDBM qw(DB_File JSON);    # use Storable for serializing
 
-    my $foo = MLDBM::Serializer::JSON->new();
+    my %db;
+    my $dbm = tie %db, 'MLDBM' [ ... other MLDBM args ... ] or die $!
+
+    $db{foo}  = 'bar';
+    $db{more} = 42;
+
+    while( my ($k,$v) = each %db) {
+	print "$k = $v\n";
+    }
+
+    # or using DBD::DBM ...
+    use DBI;
+
+    my $dbh = DBI->connect( "dbi:DBM:", undef, undef, {
+	dbm_type = "DB_File",
+	dbm_mldbm = "JSON",
+    });
     ...
 
 =head1 DESCRIPTION
+
+MLDBM::Serializer::JSON provides an extension to MLDBM to enable storing the
+additional columns as JSON instead of Data::Dumper or FreezeThaw.
+
+JSON is very widely used - from Perl over Ruby to Python and surely
+JavaScript and so on.
 
 =head1 SUBROUTINES/METHODS
 
@@ -32,7 +56,7 @@ serialize a given array into a json string
 =cut
 
 sub serialize {
-    return JSON::Any->objToJson($_[1]);
+    return JSON::Any->objToJson([$_[1]]);
 }
 
 =head2 deserialize
@@ -43,7 +67,7 @@ deserialize a json string into an array for MLDBM
 
 sub deserialize {
     my ($obj) = JSON::Any->jsonToObj($_[1]);
-    return $obj;
+    return $obj->[0];
 }
 
 =head1 AUTHOR
