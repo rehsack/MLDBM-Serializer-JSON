@@ -12,7 +12,7 @@ MLDBM::Serializer::JSON - DBM serializer uses JSON for language interoperability
 
 =cut
 
-$VERSION = '0.001';
+$VERSION = '0.002';
 @ISA = qw(MLDBM::Serializer);
 
 =head1 SYNOPSIS
