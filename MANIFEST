@@ -1,13 +1,10 @@
 Build.PL
 Changes
 lib/MLDBM/Serializer/JSON.pm
-Makefile.PL
 MANIFEST
 MANIFEST.SKIP
-META.yml
 README
 t/00-load.t
 t/01-simple.t
-t/manifest.t
-t/pod-coverage.t
-t/pod.t
+META.yml
+META.json
